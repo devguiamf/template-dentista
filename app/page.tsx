@@ -7,6 +7,9 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { Faq } from "@/components/faq";
 import { LeadForm } from "@/components/lead-form";
+import { Reveal } from "@/components/reveal";
+import { Stats } from "@/components/stats";
+import type { CSSProperties } from "react";
 
 const services = [
   { icon: Tooth, title: "Implantes Dentários", text: "Recuperação segura da mastigação com tecnologia 3D guiada, precisão e conforto." },
@@ -39,7 +42,9 @@ export default function Home() {
           <div className="container hero-grid">
             <div>
               <span className="eyebrow hero-intro"><i /> Odontologia humanizada em São Paulo</span>
-              <h1 className="hero-intro">Seu sorriso merece cuidado <em>sem medo</em>.</h1>
+              <h1 className="hero-intro">
+                Seu sorriso merece cuidado <em>sem medo<svg className="hero-underline" viewBox="0 0 120 7" aria-hidden="true"><path d="M1 4c20-4 40 3 59 0s40-1 59 1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg></em>.
+              </h1>
               <p className="hero-copy hero-intro">Tecnologia, escuta e um plano feito para você — da primeira conversa ao resultado. Viva um tratamento tranquilo e transparente.</p>
               <div className="hero-actions hero-intro">
                 <Link className="button" href="#agendamento">Agendar avaliação <ArrowRight weight="bold" /></Link>
@@ -63,28 +68,27 @@ export default function Home() {
           <LeadForm />
         </section>
 
-        <div className="stats container" aria-label="Indicadores da clínica">
-          <div className="stat"><strong>+12 anos</strong><span>Transformando sorrisos</span></div>
-          <div className="stat"><strong>4,9 no Google</strong><span>320 avaliações verificadas</span></div>
-          <div className="stat"><strong>Sem pressa</strong><span>Consultas de 40 a 50 minutos</span></div>
-          <div className="stat"><strong>100% digital</strong><span>Planejamento preciso</span></div>
-        </div>
+        <Stats />
 
         <section className="section" id="tratamentos">
           <div className="container">
-            <header className="section-head">
+            <Reveal as="header" className="section-head reveal-copy">
               <span className="section-kicker">Tratamentos</span>
               <h2>Cuidado completo para cada fase do seu sorriso</h2>
               <p>Procedimentos modernos e previsíveis, executados com rigor técnico e atenção humana.</p>
-            </header>
-            <div className="services">
-              {services.map(({ icon: Icon, title, text }) => (
-                <article className="service" key={title}>
+            </Reveal>
+            <Reveal className="services" stagger>
+              {services.map(({ icon: Icon, title, text }, index) => (
+                <article
+                  className="service"
+                  key={title}
+                  style={{ "--reveal-delay": `${index === 3 ? 180 : index * 60}ms` } as CSSProperties}
+                >
                   <Icon weight="light" />
                   <div><h3>{title}</h3><p>{text}</p></div>
                 </article>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -95,15 +99,17 @@ export default function Home() {
               <div className="quote-chip">“Você entende cada passo antes de decidir.”</div>
             </div>
             <div className="split-copy">
-              <span className="section-kicker">Diálogo honesto e claro</span>
-              <h2>Tecnologia que acolhe, não intimida</h2>
-              <p>Mostramos cada detalhe com modelos anatômicos e escaneamento digital 3D.</p>
+              <Reveal className="split-intro reveal-copy">
+                <span className="section-kicker">Diálogo honesto e claro</span>
+                <h2>Tecnologia que acolhe, não intimida</h2>
+                <p>Mostramos cada detalhe com modelos anatômicos e escaneamento digital 3D.</p>
+              </Reveal>
               <div className="feature-list">
                 {features.map(({ icon: Icon, title, text }) => (
-                  <div className="feature" key={title}>
+                  <Reveal className="feature" key={title}>
                     <span className="feature-icon"><Icon weight="light" /></span>
                     <div><h3>{title}</h3><p>{text}</p></div>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
               <Link className="button" href="#agendamento">Conhecer meu plano <ArrowRight /></Link>
@@ -118,15 +124,19 @@ export default function Home() {
               <h2>Quem chega com receio, sai sorrindo</h2>
               <p>A tranquilidade dos nossos pacientes é o compromisso que orienta cada consulta.</p>
             </header>
-            <div className="testimonials">
-              {testimonials.map(([initials, name, treatment, quote]) => (
-                <article className="testimonial" key={name}>
+            <Reveal className="testimonials" stagger>
+              {testimonials.map(([initials, name, treatment, quote], index) => (
+                <article
+                  className="testimonial"
+                  key={name}
+                  style={{ "--reveal-delay": `${index === 0 ? 0 : 80}ms` } as CSSProperties}
+                >
                   <div className="stars" aria-label="5 estrelas">★★★★★</div>
                   <blockquote>“{quote}”</blockquote>
                   <div className="person"><span className="avatar">{initials}</span><div><strong>{name}</strong><small>{treatment}</small></div></div>
                 </article>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -137,21 +147,23 @@ export default function Home() {
               <h2>Antes de marcar, você pode querer saber</h2>
               <p>Respostas claras sobre a avaliação e a experiência na Lumina.</p>
             </header>
-            <Faq />
+            <Reveal>
+              <Faq />
+            </Reveal>
           </div>
         </section>
 
         <section className="section">
           <div className="container">
-            <div className="closing">
+            <Reveal className="closing">
               <div><h2>O primeiro passo pode ser hoje.</h2><p>Agende uma conversa sem compromisso e descubra como cuidar da saúde bucal com leveza.</p></div>
               <Link className="button" href="#agendamento">Agendar agora <ArrowRight /></Link>
-            </div>
-            <div className="contact-grid">
-              <div className="contact-item"><h3>Endereço</h3><p>Av. Paulista, 1842 — Bela Vista<br />São Paulo — SP</p></div>
-              <div className="contact-item"><h3>Horários</h3><p>Segunda a sexta: 08h às 19h<br />Sábados: 08h às 13h</p></div>
-              <div className="contact-item"><h3>Canais diretos</h3><a href="tel:1140002026">(11) 4000-2026</a><br /><a href="mailto:contato@luminaodontologia.com.br">contato@luminaodontologia.com.br</a></div>
-            </div>
+            </Reveal>
+            <Reveal className="contact-grid" stagger>
+              <div className="contact-item" style={{ "--reveal-delay": "0ms" } as CSSProperties}><h3>Endereço</h3><p>Av. Paulista, 1842 — Bela Vista<br />São Paulo — SP</p></div>
+              <div className="contact-item" style={{ "--reveal-delay": "50ms" } as CSSProperties}><h3>Horários</h3><p>Segunda a sexta: 08h às 19h<br />Sábados: 08h às 13h</p></div>
+              <div className="contact-item" style={{ "--reveal-delay": "100ms" } as CSSProperties}><h3>Canais diretos</h3><a href="tel:1140002026">(11) 4000-2026</a><br /><a href="mailto:contato@luminaodontologia.com.br">contato@luminaodontologia.com.br</a></div>
+            </Reveal>
           </div>
         </section>
       </div>

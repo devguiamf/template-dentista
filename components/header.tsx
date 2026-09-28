@@ -1,6 +1,6 @@
 "use client";
 
-import { List, Phone, X } from "@phosphor-icons/react";
+import { Phone } from "@phosphor-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { startTransition, useState, ViewTransition } from "react";
@@ -30,8 +30,8 @@ export function Header() {
         <div className="header-actions">
           <a className="phone-link" href="tel:1140002026"><Phone weight="light" /> (11) 4000-2026</a>
           <Link className="button button-small" href="/#agendamento">Agendar avaliação</Link>
-          <button className="menu-button" onClick={toggle} aria-expanded={open} aria-label={open ? "Fechar menu" : "Abrir menu"}>
-            {open ? <X /> : <List />}
+          <button className={`menu-button${open ? " is-open" : ""}`} onClick={toggle} aria-expanded={open} aria-label={open ? "Fechar menu" : "Abrir menu"}>
+            <span className="menu-icon" aria-hidden="true"><i /><i /></span>
           </button>
         </div>
       </div>
