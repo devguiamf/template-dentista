@@ -3,6 +3,7 @@ import "@fontsource-variable/dm-sans";
 import "@fontsource-variable/plus-jakarta-sans";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { WhatsAppFloat } from "@/components/whatsapp-float";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main>{children}</main>
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   );
